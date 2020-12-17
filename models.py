@@ -3,12 +3,18 @@
 from peewee import *
 from peewee import TextField
 from playhouse.postgres_ext import ArrayField
-import datetime
+import datetime, os, urllib.parse
 from flask_login import UserMixin
 
 #import sample
 # Connect to a Postgres database.
-DATABASE = PostgresqlDatabase('flask_bookshelf_app', host='localhost', port=5432)
+if "DATABASE_URL" in os.environ:
+    urllib.parse.uses_netloc.append('postgres')
+    url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
+    DATABASE = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
+else:
+    DATABASE = PostgresqlDatabase('flask_bookshelf_app', host='localhost', port=5432)
+
 
 class BaseModel(Model):
     class Meta:
