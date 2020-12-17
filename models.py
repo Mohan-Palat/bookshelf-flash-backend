@@ -13,8 +13,7 @@ if "DATABASE_URL" in os.environ:
     url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
     DATABASE = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
 else:
-    DATABASE = PostgresqlDatabase('flask_bookshelf_app', host='localhost', port=5432)
-
+    DATABASE = os.environ.get('DATABASE_URL') or PostgresqlDatabase('flask_bookshelf_app', host='localhost', port=5432)
 
 class BaseModel(Model):
     class Meta:
