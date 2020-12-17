@@ -8,7 +8,8 @@ from flask_login import UserMixin
 
 #import sample
 # Connect to a Postgres database.
-if "DATABASE_URL" in os.environ:
+#DATABASE_URL="postgres://dnnuownfykrphe:da13a3c398f0169a51cb38167ada5da62ccd751bdf0be5e0370817549095859b@ec2-34-202-65-210.compute-1.amazonaws.com:5432/d7s2oe5epcnni5"
+if 'DATABASE_URL' in os.environ:
     urllib.parse.uses_netloc.append('postgres')
     url = urllib.parse.urlparse(DATABASE_URL)
     DATABASE = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
