@@ -10,8 +10,9 @@ from flask_login import UserMixin
 # Connect to a Postgres database.
 if "DATABASE_URL" in os.environ:
     urllib.parse.uses_netloc.append('postgres')
-    url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
+    url = urllib.parse.urlparse(DATABASE_URL)
     DATABASE = PostgresqlDatabase(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
+    print(DATABASE)
 else:
     DATABASE = os.environ.get('DATABASE_URL') or PostgresqlDatabase('flask_bookshelf_app', host='localhost', port=5432)
 
